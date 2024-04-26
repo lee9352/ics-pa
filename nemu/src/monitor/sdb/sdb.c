@@ -127,7 +127,7 @@ static int cmd_si(char *args) {
   if (arg == NULL) {
     /* no argument given */
 	  // step 1 instruction
-	  ;
+	  cpu_exec(1);
   }
   else {
     printf("Unknown command '%s'\n", arg);
