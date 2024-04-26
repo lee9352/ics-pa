@@ -53,9 +53,7 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_help(char *args);
-static int cmd_si(char *args) {
-  return 0;
-}
+static int cmd_si(char *args);
 
 static int cmd_info(char *args) {
   return 0;
@@ -116,6 +114,22 @@ static int cmd_help(char *args) {
         return 0;
       }
     }
+    printf("Unknown command '%s'\n", arg);
+  }
+  return 0;
+}
+
+static int cmd_si(char *args) {
+  /* extract the first argument */
+  char *arg = strtok(NULL, " ");
+  //int N = 1;
+
+  if (arg == NULL) {
+    /* no argument given */
+	  // step 1 instruction
+	  ;
+  }
+  else {
     printf("Unknown command '%s'\n", arg);
   }
   return 0;
