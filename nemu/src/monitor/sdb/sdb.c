@@ -90,8 +90,8 @@ static struct {
   { "si", "Format:si N, make program execute N instructions then pause, default N is 1", cmd_si},
   { "info", "Format:info [r/w], print register status or watchpoint", cmd_info},
   { "x", "Format:x N EXPR, print mem[EXPR] to mem[EXPR+N*4] in hex", cmd_x},
-  { "p", "Format:p EXPR, Print EXPR", cmd_p},
-  { "w", "Format:w EXPR, Watch EXPR", cmd_w},
+  { "p", "Format:p EXPR, print EXPR", cmd_p},
+  { "w", "Format:w EXPR, watch EXPR", cmd_w},
   { "d", "Format:d N, delete watchpoint N", cmd_d},
 
 };
