@@ -53,6 +53,29 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_help(char *args);
+static int cmd_si(char *args) {
+  return 0;
+}
+
+static int cmd_info(char *args) {
+  return 0;
+}
+
+static int cmd_x(char *args) {
+  return 0;
+}
+
+static int cmd_p(char *args) {
+  return 0;
+}
+
+static int cmd_w(char *args) {
+  return 0;
+}
+
+static int cmd_d(char *args) {
+  return 0;
+}
 
 static struct {
   const char *name;
@@ -64,6 +87,12 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
+  { "si", "Make program execute N instructions then pause, default N is 1", cmd_si},
+  { "info", "Print register status or watchpoint", cmd_info},
+  { "x", "Print mem[EXPR] to mem[EXPR+N*4]", cmd_x},
+  { "p", "Print EXPR", cmd_p},
+  { "w", "Watch EXPR", cmd_w},
+  { "d", "Delete watchpoint N", cmd_d},
 
 };
 
