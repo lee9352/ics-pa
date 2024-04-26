@@ -87,7 +87,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-  { "si", "Format:si N, make program execute N instructions then pause, default N is 1", cmd_si},
+  { "si", "Format:si [N], make program execute N instructions then pause, default N is 1", cmd_si},
   { "info", "Format:info [r/w], print register status or watchpoint", cmd_info},
   { "x", "Format:x N EXPR, print mem[EXPR] to mem[EXPR+N*4] in hex", cmd_x},
   { "p", "Format:p EXPR, print EXPR", cmd_p},
