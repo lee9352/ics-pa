@@ -124,16 +124,26 @@ static int cmd_help(char *args) {
 static int cmd_si(char *args) {
   /* extract the first argument */
   char *arg = strtok(NULL, " ");
-  //int N = 1;
 
   if (arg == NULL) {
     /* no argument given */
 	  // step 1 instruction
 	  cpu_exec(1);
+    return 0;
   }
-  else {
-    printf("Unknown command '%s'\n", arg);
+  
+  char *tmp = arg;
+  while(*tmp != '\0' ){
+    if( !isdigit(*tmp) ) {
+      printf("Illegal argument '%s' for si cmd!!!\n", arg);
+      return 0;
+    }
+    tmp++;
   }
+  uint64_t N = 0;
+  sscanf(arg, "%lu", &N);
+  // step N instructions
+  cpu_exec(N);
   return 0;
 }
 
