@@ -56,10 +56,7 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 static int cmd_si(char *args);
-
-static int cmd_info(char *args) {
-  return 0;
-}
+static int cmd_info(char *args);
 
 static int cmd_x(char *args) {
   return 0;
@@ -131,7 +128,7 @@ static int cmd_si(char *args) {
 	  cpu_exec(1);
     return 0;
   }
-  
+
   char *tmp = arg;
   while(*tmp != '\0' ){
     if( !isdigit(*tmp) ) {
@@ -144,6 +141,26 @@ static int cmd_si(char *args) {
   sscanf(arg, "%lu", &N);
   // step N instructions
   cpu_exec(N);
+  return 0;
+}
+
+static int cmd_info(char *args) {
+  /* extract the first argument */
+  char *arg = strtok(NULL, " ");
+
+  if (arg == NULL) {
+    /* no argument given */
+	  printf("need argument 'r' or 'w' to show registers status or watchpoints!!\n");
+    return 0;
+  }
+
+  if ( strcmp(arg, "r") == 0 ) isa_reg_display();
+  else if ( strcmp(arg, "w") == 0 ) {
+    printf("Command 'info w' is not finished!!\n");
+  } else {
+    printf("Illegal argument '%s' for info cmd!!!\n", arg);
+  }
+  
   return 0;
 }
 
