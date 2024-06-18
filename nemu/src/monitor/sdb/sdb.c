@@ -17,6 +17,7 @@
 #include <cpu/cpu.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <memory/paddr.h>
 #include "sdb.h"
 
 static int is_batch_mode = false;
@@ -57,10 +58,7 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 static int cmd_si(char *args);
 static int cmd_info(char *args);
-
-static int cmd_x(char *args) {
-  return 0;
-}
+static int cmd_x(char *args);
 
 static int cmd_p(char *args) {
   return 0;
@@ -159,6 +157,41 @@ static int cmd_info(char *args) {
     printf("Command 'info w' is not finished!!\n");
   } else {
     printf("Illegal argument '%s' for info cmd!!!\n", arg);
+  }
+  
+  return 0;
+}
+
+static int cmd_x(char *args) {
+  /* extract the first argument */
+  char *arg0 = strtok(NULL, " ");
+  char *arg1 = strtok(NULL, " ");
+
+  if (arg0 == NULL || arg1 == NULL) {
+    /* no argument given */
+	  printf("need argument 'r' or 'w' to show registers status or watchpoints!!\n");
+    return 0;
+  }
+
+  char *tmp = arg0;
+  while(*tmp != '\0' ){
+    if( !isdigit(*tmp) ) {
+      printf("Illegal argument '%s' for si cmd!!!\n", arg0);
+      return 0;
+    }
+    tmp++;
+  }
+  paddr_t N = 0;
+  sscanf(arg0, "%u", &N);
+  paddr_t expr = 0;
+  sscanf(arg1, "%x", &expr);
+  paddr_t i = 0;
+  uint32_t *mem_word = (uint32_t *)guest_to_host(expr);
+  for( i=0 ; i < N ; i++){
+    printf("0x%08x : ", expr+i*4);
+    printf("%08x", *(mem_word));
+    printf("\n");
+    mem_word += 1;
   }
   
   return 0;
