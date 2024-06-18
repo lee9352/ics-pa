@@ -169,29 +169,31 @@ static int cmd_x(char *args) {
 
   if (arg0 == NULL || arg1 == NULL) {
     /* no argument given */
-	  printf("need argument 'r' or 'w' to show registers status or watchpoints!!\n");
+	  printf("need 2 args!!\n");
     return 0;
   }
-
+  /* handle arg0 */
   char *tmp = arg0;
   while(*tmp != '\0' ){
     if( !isdigit(*tmp) ) {
-      printf("Illegal argument '%s' for si cmd!!!\n", arg0);
+      printf("Illegal argument0 '%s' for x cmd!!!\n", arg0);
       return 0;
     }
     tmp++;
   }
   paddr_t N = 0;
   sscanf(arg0, "%u", &N);
-  paddr_t expr = 0;
-  sscanf(arg1, "%x", &expr);
+
+  /* handle arg1 */
+  paddr_t expr_res = 0;
+  sscanf(arg1, "%x", &expr_res);
+
   paddr_t i = 0;
-  uint32_t *mem_word = (uint32_t *)guest_to_host(expr);
-  for( i=0 ; i < N ; i++){
-    printf("0x%08x : ", expr+i*4);
-    printf("%08x", *(mem_word));
-    printf("\n");
-    mem_word += 1;
+  while( i < N*4 ){
+    printf("0x%08x : ", expr_res+i);
+    word_t mem_word = paddr_read(expr_res+i, 4);
+    printf("%08x\n", mem_word);
+    i += 4;
   }
   
   return 0;
